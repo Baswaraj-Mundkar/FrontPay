@@ -69,3 +69,26 @@ footer{max-width:1060px;margin:0 auto;padding:20px 28px 28px;display:flex;justif
 .toast.show{opacity:1;transform:translate(-50%,0)}[hidden]{display:none!important}
 @media(max-width:760px){.topbar{height:64px;padding:0 18px}.shell{padding:34px 16px 22px}.intro{margin-bottom:28px}h1{letter-spacing:-1.8px}.subtitle{font-size:13px;max-width:360px}.workspace{grid-template-columns:1fr;gap:14px}.scanner-card{padding:17px;border-radius:16px}.camera-stage{height:min(68vw,340px);min-height:235px}.side-panel{display:grid;grid-template-columns:1fr}.steps-card{padding:20px}.step{margin-top:18px}.step:first-of-type{margin-top:20px}.trust-card{padding:14px}.result-card{padding:18px}.app-grid{grid-template-columns:repeat(2,1fr)}footer{padding:18px;gap:12px}.camera-pill{font-size:8px}.card-heading h2{font-size:18px}}
 @media(max-width:370px){.scanner-actions{flex-direction:column}.btn-secondary{padding:11px}.scan-tools{flex-wrap:wrap}.result-footer{gap:12px;flex-wrap:wrap}}
+
+/* Problem-led introduction */
+.problem-banner{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(180px,.65fr);align-items:center;gap:22px;margin:-12px 0 34px;padding:25px 30px;border:1px solid #dfe7ff;border-radius:18px;background:linear-gradient(112deg,#eef2ff 0%,#f7f8ff 58%,#e9f8f2 100%)}
+.problem-copy{position:relative;z-index:1}
+.problem-eyebrow{display:flex;align-items:center;gap:8px;color:#526bd1;font-size:9px;font-weight:800;letter-spacing:.15em}
+.problem-dot{width:7px;height:7px;border-radius:50%;background:#526df3;box-shadow:0 0 0 4px #526df31a}
+.problem-banner h2{margin:11px 0 8px;font:800 clamp(21px,3vw,29px)/1.2 Manrope,sans-serif;letter-spacing:-1px;color:#19294b}
+.problem-banner p{max-width:560px;margin:0;color:#63718b;font-size:12px;line-height:1.7}
+.problem-points{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:16px}
+.problem-points span{font-size:10px;font-weight:700;color:#435a8b}
+.problem-visual{min-height:135px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.phone-illustration{width:76px;height:124px;padding:6px;border:3px solid #26385c;border-radius:17px;background:#26385c;box-shadow:0 10px 25px #26385c25;transform:rotate(7deg)}
+.phone-screen{height:100%;border-radius:10px;background:linear-gradient(160deg,#dce8ff,#f8fbff);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;position:relative}
+.phone-camera{position:absolute;top:5px;width:17px;height:4px;border-radius:5px;background:#26385c}
+.phone-scan{width:42px;height:42px;position:relative;border:1px solid #8da5ed;border-radius:7px;background:repeating-linear-gradient(0deg,transparent 0 5px,#d4def8 5px 6px),repeating-linear-gradient(90deg,transparent 0 5px,#d4def8 5px 6px)}
+.phone-scan i{position:absolute;width:10px;height:10px;border:2px solid #315efb}
+.phone-scan i:nth-child(1){top:3px;left:3px;border-right:0;border-bottom:0}.phone-scan i:nth-child(2){top:3px;right:3px;border-left:0;border-bottom:0}.phone-scan i:nth-child(3){bottom:3px;left:3px;border-right:0;border-top:0}.phone-scan i:nth-child(4){bottom:3px;right:3px;border-left:0;border-top:0}
+.phone-scan b{position:absolute;top:50%;left:3px;right:3px;height:2px;background:#25ad7a;box-shadow:0 0 7px #25ad7a}
+.phone-screen>span{font-size:6px;font-weight:800;letter-spacing:.1em;color:#526bd1}
+.visual-caption{display:flex;align-items:center;gap:6px;margin-top:8px;color:#496c60;font-size:9px;font-weight:700}
+.visual-check{display:grid;place-items:center;width:15px;height:15px;border-radius:50%;background:#d6f4e5;color:#21885f;font-size:10px}
+@media(max-width:760px){.problem-banner{grid-template-columns:1fr;gap:6px;margin:-4px 0 24px;padding:21px 20px}.problem-visual{position:absolute;right:15px;top:18px;opacity:.9;transform:scale(.82);transform-origin:top right}.problem-copy{padding-right:78px}.problem-banner p{font-size:11px}.problem-points{gap:7px 12px}.problem-points span{font-size:9px}}
+@media(max-width:370px){.problem-visual{right:7px;transform:scale(.68);opacity:.7}.problem-copy{padding-right:55px}}
