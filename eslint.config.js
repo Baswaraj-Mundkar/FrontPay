@@ -1,5 +1,5 @@
 const browserGlobals = [
-  'window', 'document', 'navigator', 'URL', 'Intl', 'ImageData',
+  'window', 'document', 'navigator', 'URL', 'Intl', 'ImageData', 'jsQR',
   'createImageBitmap', 'setTimeout', 'clearTimeout', 'setInterval',
   'clearInterval', 'console',
 ];
