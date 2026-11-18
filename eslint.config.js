@@ -20,9 +20,7 @@ export default [
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'script',
-      globals: Object.fromEntries(
-        browserGlobals.map((name) => [name, 'readonly']),
-      ),
+      globals: Object.fromEntries(browserGlobals.map((name) => [name, 'readonly'])),
     },
     rules: {
       'no-undef': 'error',
