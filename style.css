@@ -92,3 +92,8 @@ footer{max-width:1060px;margin:0 auto;padding:20px 28px 28px;display:flex;justif
 .visual-check{display:grid;place-items:center;width:15px;height:15px;border-radius:50%;background:#d6f4e5;color:#21885f;font-size:10px}
 @media(max-width:760px){.problem-banner{grid-template-columns:1fr;gap:6px;margin:-4px 0 24px;padding:21px 20px}.problem-visual{position:absolute;right:15px;top:18px;opacity:.9;transform:scale(.82);transform-origin:top right}.problem-copy{padding-right:78px}.problem-banner p{font-size:11px}.problem-points{gap:7px 12px}.problem-points span{font-size:9px}}
 @media(max-width:370px){.problem-visual{right:7px;transform:scale(.68);opacity:.7}.problem-copy{padding-right:55px}}
+
+
+/* Quiet, integrated payment-safety note */
+.safety-note{margin:20px 2px 0;padding:0;text-align:center;color:#9aa6b6;font-size:10px;line-height:1.6}
+.safety-note:before{content:"";display:block;width:28px;height:1px;margin:0 auto 12px;background:#e2e8f0}
