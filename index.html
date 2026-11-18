@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f9fc">
+  <meta name="description" content="FrontPay scans UPI QR codes with your front camera and opens your preferred payment app.">
+  <title>FrontPay — Scan & Pay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="FrontPay home"><span class="brand-mark"><span></span><span></span><span></span><span></span></span><span>front<span class="brand-accent">pay</span></span></a>
+    <div class="top-tag"><span class="live-dot"></span> Private &amp; secure</div>
+  </header>
+  <main class="shell">
+    <section class="intro">
+      <div class="eyebrow"><span class="eyebrow-line"></span> THE QUICKER WAY TO PAY</div>
+      <h1>Scan with your<br><span>front camera.</span></h1>
+      <p class="subtitle">Scan any UPI QR code and continue in your payment app. No sign-up. No account needed.</p>
+    </section>
+    <section class="workspace">
+      <div class="scanner-card">
+        <div class="card-heading"><div><div class="section-kicker">QR SCANNER</div><h2>Ready when you are</h2></div><span class="camera-pill"><span class="live-dot"></span> FRONT CAMERA</span></div>
+        <div class="camera-stage" id="cameraStage">
+          <video id="video" playsinline muted></video><canvas id="scanCanvas" hidden></canvas>
+          <div class="camera-placeholder" id="cameraPlaceholder">
+            <div class="placeholder-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="12" width="34" height="26" rx="5"/><path d="M17 12l2.5-4h9l2.5 4"/><circle cx="24" cy="25" r="7"/></svg></div>
+            <strong>Your camera preview appears here</strong><span>Use your front camera to scan a merchant QR</span>
+          </div>
+          <div class="scan-overlay" id="scanOverlay" hidden><div class="scan-frame"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i><div class="scan-line"></div></div><span class="scan-hint">Align the QR code inside the frame</span></div>
+          <div class="camera-error" id="cameraError" hidden></div>
+        </div>
+        <div class="scanner-actions">
+          <button class="btn btn-primary" id="startBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Start scanning</button>
+          <button class="btn btn-secondary" id="stopBtn" type="button" disabled>Stop camera</button>
+        </div>
+        <div class="scan-tools">
+          <button class="text-action" id="switchCameraBtn" type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7h-3l-2-2H9L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><circle cx="12" cy="13" r="3"/></svg>Switch camera</button>
+          <label class="text-action upload-action" for="imageInput"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m-4 4 4-4 4 4"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg>Upload QR image</label>
+          <input id="imageInput" type="file" accept="image/*" hidden>
+        </div>
+        <p class="camera-note"><span class="lock-icon">▣</span> Camera access is used only in this browser tab. Images are not uploaded.</p>
+      </div>
+      <aside class="side-panel">
+        <div class="steps-card"><div class="section-kicker">THREE SIMPLE STEPS</div>
+          <div class="step"><span class="step-number">01</span><div><strong>Scan the QR</strong><p>Point your front camera at any UPI QR code.</p></div></div>
+          <div class="step"><span class="step-number">02</span><div><strong>Check the details</strong><p>Verify the recipient and amount before continuing.</p></div></div>
+          <div class="step"><span class="step-number">03</span><div><strong>Choose how to pay</strong><p>Open the payment app you already use.</p></div></div>
+        </div>
+        <div class="trust-card"><div class="trust-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.7 3.2 8.1 7.5 9.5 4.3-1.4 7.5-4.8 7.5-9.5V6L12 3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></div><div><strong>Your payment stays yours</strong><p>FrontPay never asks for your UPI PIN or processes payments.</p></div></div>
+      </aside>
+    </section>
+    <section class="result-card" id="resultCard" hidden aria-live="polite">
+      <div class="result-heading"><div class="result-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></div><div><div class="section-kicker">QR CODE DETECTED</div><h2>Review payment details</h2></div><button class="icon-button" id="closeResultBtn" type="button" aria-label="Close result">×</button></div>
+      <div class="merchant-block"><span class="merchant-label">PAYING TO</span><strong id="merchantName">Unknown merchant</strong><span id="merchantVpa" class="muted-value"></span></div>
+      <div class="amount-row" id="amountRow" hidden><span>Amount in QR</span><strong id="amountValue"></strong></div>
+      <div class="amount-row" id="noteRow" hidden><span>Payment note</span><strong id="noteValue"></strong></div>
+      <div class="raw-warning" id="nonUpiWarning" hidden>This QR does not look like a standard UPI payment QR. Payment app handoff may not work.</div>
+      <div class="payment-heading"><div><div class="section-kicker">CONTINUE WITH</div><h3>Choose payment app</h3></div><span class="app-caption">Installed apps only</span></div>
+      <div class="app-grid">
+        <button class="app-option" data-app="phonepe" type="button"><span class="app-logo phonepe">पे</span><span>PhonePe</span><span class="app-arrow">↗</span></button>
+        <button class="app-option" data-app="paytm" type="button"><span class="app-logo paytm">₹</span><span>Paytm</span><span class="app-arrow">↗</span></button>
+        <button class="app-option" data-app="gpay" type="button"><span class="app-logo gpay">G</span><span>Google Pay</span><span class="app-arrow">↗</span></button>
+        <button class="app-option" data-app="any" type="button"><span class="app-logo other">↗</span><span>Other UPI app</span><span class="app-arrow">↗</span></button>
+      </div>
+      <div class="handoff-note" id="handoffNote">Your payment app will show the final details. Verify the recipient and amount there before entering your UPI PIN.</div>
+      <div class="result-footer"><button class="text-action" id="copyUpiBtn" type="button">Copy UPI payment link</button><button class="text-action" id="scanAgainBtn" type="button">Scan another QR ↻</button></div>
+    </section>
+    <section class="notice"><div class="notice-symbol">i</div><p><strong>Always verify before paying.</strong> QR codes can contain a recipient and amount chosen by someone else. Confirm both in your payment app. FrontPay does not verify merchant identity.</p></section>
+  </main>
+  <footer><span>© <span id="year"></span> FrontPay</span><span>Made for simpler UPI scanning</span></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
