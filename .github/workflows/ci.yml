@@ -44,4 +44,4 @@ jobs:
 
       - name: Enforce Conventional Commits on pull requests
         if: github.event_name == 'pull_request'
-        run: npx --yes --package @commitlint/cli@19.8.1 --package @commitlint/config-conventional@19.8.1 commitlint --extends @commitlint/config-conventional --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }}
+        run: npx --yes @commitlint/cli@19.8.1 --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }}

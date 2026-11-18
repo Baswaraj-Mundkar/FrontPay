@@ -1,7 +1,17 @@
 const browserGlobals = [
-  'window', 'document', 'navigator', 'URL', 'Intl', 'ImageData', 'jsQR',
-  'createImageBitmap', 'setTimeout', 'clearTimeout', 'setInterval',
-  'clearInterval', 'console',
+  'window',
+  'document',
+  'navigator',
+  'URL',
+  'Intl',
+  'ImageData',
+  'jsQR',
+  'createImageBitmap',
+  'setTimeout',
+  'clearTimeout',
+  'setInterval',
+  'clearInterval',
+  'console',
 ];
 
 export default [
@@ -10,7 +20,9 @@ export default [
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'script',
-      globals: Object.fromEntries(browserGlobals.map((name) => [name, 'readonly'])),
+      globals: Object.fromEntries(
+        browserGlobals.map((name) => [name, 'readonly']),
+      ),
     },
     rules: {
       'no-undef': 'error',
