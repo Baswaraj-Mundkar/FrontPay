@@ -79,13 +79,19 @@ These checks validate JavaScript syntax and lint rules, run the project's smoke 
 │   └── style.css
 ├── tests/
 │   └── site.test.mjs
-├── index.html
-├── README.md
-├── CONTRIBUTING.md
+├── .editorconfig
+├── .gitignore
+├── .prettierignore
+├── .prettierrc.json
 ├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
 ├── LICENSE
-├── SECURITY.md
 ├── OWNERSHIP.md
+├── README.md
+├── SECURITY.md
+├── commitlint.config.cjs
+├── eslint.config.js
+├── index.html
 └── package.json
 ```
 
@@ -99,7 +105,7 @@ The site loads third-party resources from jsDelivr and Google Fonts. Those provi
 
 ## Contributing
 
-Bug reports and focused improvements are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or pull request. Commit messages should follow Conventional Commits.
+Bug reports and focused improvements are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or pull request. Commit messages are checked against Conventional Commits on pull requests.
 
 ## License
 
