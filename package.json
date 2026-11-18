@@ -1,0 +1,13 @@
+{
+  "name": "frontpay",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Front-camera-first UPI QR scanner",
+  "type": "module",
+  "scripts": {
+    "lint": "npx --yes eslint@9.39.1 src/script.js",
+    "test": "node --test",
+    "validate": "node scripts/validate.mjs",
+    "format:check": "npx --yes prettier@3.6.2 --check README.md OWNERSHIP.md CONTRIBUTING.md CODE_OF_CONDUCT.md SECURITY.md docs/ARCHITECTURE.md .github/pull_request_template.md .github/ISSUE_TEMPLATE/*.md .github/workflows/ci.yml package.json eslint.config.js .prettierrc.json"
+  }
+}

@@ -16,7 +16,7 @@
     if (stream) { stream.getTracks().forEach(track => track.stop()); stream = null; }
     video.pause(); video.srcObject = null; video.style.display = "none"; placeholder.hidden = false; overlay.hidden = true;
     stopBtn.disabled = true; startBtn.disabled = false; switchBtn.disabled = true;
-    startBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Start scanning';
+    startBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Start scanning';
   }
   async function startCamera(facing = "user") {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
