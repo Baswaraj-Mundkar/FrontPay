@@ -72,21 +72,64 @@
     $("handoffNote").textContent = d && d.validVpa
       ? "The selected payment app will receive this UPI link if it supports external UPI intents. Verify the recipient and amount inside the payment app before entering your UPI PIN."
       : "This QR is not a validated UPI payment address. You can copy its contents, but payment-app handoff may not work.";
-    resultCard.hidden = false; resultCard.dataset.validUpi = d && d.validVpa ? "true" : "false";
+    resultCard.hidden = false; resultCard.dataset.validUpi = d && d.validVpa ? "true" : "false"; refreshPreferredButton();
   }
   function buildIntent(raw, packageName) {
     if (!/^upi:\/\/pay\?/i.test(raw.trim())) return null;
     const afterScheme = raw.trim().replace(/^upi:\/\//i, "");
     return "intent://" + afterScheme + "#Intent;scheme=upi" + (packageName ? ";package=" + packageName : "") + ";end";
   }
+  const appLabels = { phonepe: "PhonePe", paytm: "Paytm", gpay: "Google Pay", any: "Other UPI app" };
+  const preferenceKey = "frontpay.preferredPaymentApp";
+  const preferredPayBtn = $("preferredPayBtn"), changePreferredBtn = $("changePreferredBtn"), paymentModal = $("paymentModal");
+  function getPreferredApp() {
+    try { const value = localStorage.getItem(preferenceKey); return Object.hasOwn(appLabels, value) ? value : null; }
+    catch (_) { return null; }
+  }
+  function savePreferredApp(app) {
+    try { localStorage.setItem(preferenceKey, app); return true; }
+    catch (_) { toast("Could not save your preference in this browser."); return false; }
+  }
+  function refreshPreferredButton() {
+    const preferred = getPreferredApp();
+    preferredPayBtn.textContent = preferred ? "Pay with " + appLabels[preferred] : "Choose payment app";
+    changePreferredBtn.hidden = !preferred;
+  }
   function openPaymentApp(app) {
     const d = parseUpi(currentPayload);
     if (!d || !d.validVpa) { toast("This QR is not a valid UPI payment QR."); return; }
     const target = app === "any" ? currentPayload : buildIntent(currentPayload, appPackages[app]);
     if (!target) { toast("This UPI QR format cannot be opened directly."); return; }
-    $("handoffNote").textContent = "We attempted to open your selected payment app. If nothing happens, use Other UPI app or copy the payment link. Confirm all details in the payment app.";
+    $("handoffNote").textContent = "Opening " + appLabels[app] + ". If it does not open, change your preferred app or copy the payment link. Confirm all details in your payment app.";
     window.location.href = target;
   }
+  function openPaymentChooser() {
+    const saved = getPreferredApp(), choice = saved || "phonepe";
+    document.querySelectorAll('input[name="paymentApp"]').forEach(input => { input.checked = input.value === choice; });
+    $("rememberPaymentApp").checked = true;
+    paymentModal.hidden = false;
+    $("paymentModalContinue").focus();
+  }
+  function closePaymentChooser() { paymentModal.hidden = true; preferredPayBtn.focus(); }
+  preferredPayBtn.addEventListener("click", () => {
+    const preferred = getPreferredApp();
+    if (preferred) openPaymentApp(preferred); else openPaymentChooser();
+  });
+  changePreferredBtn.addEventListener("click", openPaymentChooser);
+  $("paymentModalContinue").addEventListener("click", () => {
+    const selected = document.querySelector('input[name="paymentApp"]:checked');
+    if (!selected) { toast("Choose a payment app to continue."); return; }
+    const app = selected.value;
+    if ($("rememberPaymentApp").checked) savePreferredApp(app);
+    refreshPreferredButton();
+    paymentModal.hidden = true;
+    openPaymentApp(app);
+  });
+  $("paymentModalCancel").addEventListener("click", closePaymentChooser);
+  $("paymentModalClose").addEventListener("click", closePaymentChooser);
+  paymentModal.querySelector("[data-close-modal]").addEventListener("click", closePaymentChooser);
+  document.addEventListener("keydown", event => { if (event.key === "Escape" && !paymentModal.hidden) closePaymentChooser(); });
+  refreshPreferredButton();
   async function scanImage(file) {
     if (!file) return;
     if (!window.jsQR) { toast("QR scanner library did not load. Check your internet connection."); return; }
@@ -104,7 +147,7 @@
   stopBtn.addEventListener("click", stopCamera);
   switchBtn.addEventListener("click", () => startCamera(activeFacing === "user" ? "environment" : "user"));
   imageInput.addEventListener("change", event => scanImage(event.target.files[0]));
-  document.querySelectorAll(".app-option").forEach(button => button.addEventListener("click", () => openPaymentApp(button.dataset.app)));
+
   $("copyUpiBtn").addEventListener("click", async () => {
     if (!currentPayload) return;
     try { await navigator.clipboard.writeText(currentPayload); toast("QR contents copied."); }
