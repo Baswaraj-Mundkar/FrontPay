@@ -6,6 +6,12 @@ FrontPay is a lightweight, browser-based UPI QR scanner designed for situations 
 
 [Open the live website](https://baswaraj-mundkar.github.io/FrontPay/) · [Report a bug](https://github.com/Baswaraj-Mundkar/FrontPay/issues) · [Ownership and project history](OWNERSHIP.md)
 
+## Why FrontPay?
+
+Many popular UPI payment apps primarily use the rear camera for QR scanning and may not offer a convenient front-camera option. This can make everyday QR payments difficult when a phone's rear camera is damaged or unavailable—even if its front camera still works.
+
+FrontPay is built to address that specific situation: it lets users scan UPI QR codes with their front camera in a browser, review the decoded payment details, and then hand off to a compatible payment app. Camera options vary by app, device and version; FrontPay is intended as an alternative, not a replacement for UPI payment apps.
+
 ## Features
 
 - Front-camera-first QR scanning.
