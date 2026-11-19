@@ -97,3 +97,25 @@ footer{max-width:1060px;margin:0 auto;padding:22px 28px 30px;display:flex;justif
 /* Quiet, integrated payment-safety note */
 .safety-note{margin:20px 2px 0;padding:0;text-align:center;color:#9aa6b6;font-size:10px;line-height:1.6}
 .safety-note:before{content:"";display:block;width:28px;height:1px;margin:0 auto 12px;background:#e2e8f0}
+
+/* Preferred payment app and selection dialog */
+.preferred-app-controls{display:flex;align-items:center;gap:12px;margin-top:14px}
+.preferred-app-controls .btn-primary{min-height:46px}
+.payment-modal{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:18px}
+.payment-modal-backdrop{position:absolute;inset:0;background:rgba(13,25,43,.52);backdrop-filter:blur(3px)}
+.payment-modal-panel{position:relative;width:min(100%,430px);max-height:calc(100vh - 36px);overflow:auto;padding:26px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 80px rgba(12,25,43,.24)}
+.payment-modal-panel h2{margin:9px 0 8px;font:800 22px Manrope,sans-serif;letter-spacing:-.7px}
+.payment-modal-panel>p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
+.payment-modal-close{position:absolute;right:18px;top:18px}
+.payment-choice-list{display:grid;gap:9px;margin:20px 0}
+.payment-choice{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;transition:.15s}
+.payment-choice:has(input:checked){border-color:#9db1ff;background:#f6f8ff;box-shadow:0 0 0 2px #315efb12}
+.payment-choice input{accent-color:var(--blue);width:16px;height:16px;flex:none}
+.payment-choice .app-logo{flex:none}
+.payment-choice-name{font-size:12px;font-weight:700;color:#35445a}
+.remember-choice{display:flex;align-items:flex-start;gap:9px;color:#50627b;font-size:11px;line-height:1.5;cursor:pointer}
+.remember-choice input{accent-color:var(--blue);margin-top:1px}
+.payment-modal-actions{display:flex;gap:10px;margin-top:20px}
+.payment-modal-actions .btn{flex:1}
+.payment-modal-footnote{margin-top:15px!important;font-size:10px!important}
+@media(max-width:480px){.payment-modal-panel{padding:22px 18px;border-radius:17px}.preferred-app-controls{flex-wrap:wrap}.preferred-app-controls .btn-primary{flex:1}}
