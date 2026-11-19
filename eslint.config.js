@@ -2,6 +2,7 @@ const browserGlobals = [
   'window',
   'document',
   'navigator',
+  'localStorage',
   'URL',
   'Intl',
   'ImageData',
