@@ -75,12 +75,10 @@
       <div class="amount-row" id="amountRow" hidden><span>Amount in QR</span><strong id="amountValue"></strong></div>
       <div class="amount-row" id="noteRow" hidden><span>Payment note</span><strong id="noteValue"></strong></div>
       <div class="raw-warning" id="nonUpiWarning" hidden>This QR does not look like a standard UPI payment QR. Payment app handoff may not work.</div>
-      <div class="payment-heading"><div><div class="section-kicker">CONTINUE WITH</div><h3>Choose payment app</h3></div><span class="app-caption">Installed apps only</span></div>
-      <div class="app-grid">
-        <button class="app-option" data-app="phonepe" type="button"><span class="app-logo phonepe">पे</span><span>PhonePe</span><span class="app-arrow">↗</span></button>
-        <button class="app-option" data-app="paytm" type="button"><span class="app-logo paytm">₹</span><span>Paytm</span><span class="app-arrow">↗</span></button>
-        <button class="app-option" data-app="gpay" type="button"><span class="app-logo gpay">G</span><span>Google Pay</span><span class="app-arrow">↗</span></button>
-        <button class="app-option" data-app="any" type="button"><span class="app-logo other">↗</span><span>Other UPI app</span><span class="app-arrow">↗</span></button>
+      <div class="payment-heading"><div><div class="section-kicker">CONTINUE WITH</div><h3>Preferred payment app</h3></div><span class="app-caption">Saved on this device</span></div>
+      <div class="preferred-app-controls">
+        <button class="btn btn-primary" id="preferredPayBtn" type="button">Choose payment app</button>
+        <button class="text-action" id="changePreferredBtn" type="button" hidden>Change app</button>
       </div>
       <div class="handoff-note" id="handoffNote">Your payment app will show the final details. Verify the recipient and amount there before entering your UPI PIN.</div>
       <div class="result-footer"><button class="text-action" id="copyUpiBtn" type="button">Copy UPI payment link</button><button class="text-action" id="scanAgainBtn" type="button">Scan another QR ↻</button></div>
@@ -88,6 +86,24 @@
     <p class="safety-note">Before paying, verify the recipient and amount in your UPI app. FrontPay does not process payments.</p>
   </main>
   <footer><span>© <span id="year"></span> FrontPay · Created by Baswaraj Mundkar. All rights reserved.</span><span>Made for simpler UPI scanning</span></footer>
+  <div class="payment-modal" id="paymentModal" hidden>
+    <div class="payment-modal-backdrop" data-close-modal></div>
+    <section class="payment-modal-panel" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle" aria-describedby="paymentModalDescription">
+      <button class="icon-button payment-modal-close" id="paymentModalClose" type="button" aria-label="Close app selection">×</button>
+      <div class="section-kicker">PAYMENT PREFERENCE</div>
+      <h2 id="paymentModalTitle">Choose your payment app</h2>
+      <p id="paymentModalDescription">Select an app to continue this payment.</p>
+      <div class="payment-choice-list">
+        <label class="payment-choice"><input type="radio" name="paymentApp" value="phonepe"><span class="app-logo phonepe">पे</span><span class="payment-choice-name">PhonePe</span></label>
+        <label class="payment-choice"><input type="radio" name="paymentApp" value="gpay"><span class="app-logo gpay">G</span><span class="payment-choice-name">Google Pay</span></label>
+        <label class="payment-choice"><input type="radio" name="paymentApp" value="paytm"><span class="app-logo paytm">₹</span><span class="payment-choice-name">Paytm</span></label>
+        <label class="payment-choice"><input type="radio" name="paymentApp" value="any"><span class="app-logo other">↗</span><span class="payment-choice-name">Other UPI app</span></label>
+      </div>
+      <label class="remember-choice"><input type="checkbox" id="rememberPaymentApp" checked><span>Remember my choice as default on this device</span></label>
+      <div class="payment-modal-actions"><button class="btn btn-secondary" id="paymentModalCancel" type="button">Cancel</button><button class="btn btn-primary" id="paymentModalContinue" type="button">Continue</button></div>
+      <p class="payment-modal-footnote">You can change this preference anytime. Confirm the recipient and amount in your UPI app.</p>
+    </section>
+  </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="src/script.js"></script>
 </body>
