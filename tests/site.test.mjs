@@ -29,3 +29,13 @@ test('payment safety guidance is present', () => {
   assert.match(html, /verify the recipient and amount/i);
   assert.match(html, /does not process payments/i);
 });
+
+test('preferred payment app selection and local persistence are wired', () => {
+  assert.match(html, /id="paymentModal"/);
+  assert.match(html, /id="rememberPaymentApp"/);
+  assert.match(script, /frontpay\.preferredPaymentApp/);
+  assert.match(script, /function getPreferredApp\(/);
+  assert.match(script, /function openPaymentChooser\(/);
+  assert.match(script, /if \(preferred\) openPaymentApp\(preferred\); else openPaymentChooser\(\)/);
+  assert.match(script, /if \(\$\("rememberPaymentApp"\)\.checked\) savePreferredApp\(app\)/);
+});
